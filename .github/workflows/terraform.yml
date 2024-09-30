@@ -17,6 +17,9 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
 
+            - name: Check ID Token
+              run: echo ${{ github.token }}
+
             - name: Configure AWS
               uses: aws-actions/configure-aws-credentials@v4
               with:

@@ -11,11 +11,11 @@ resource "aws_iam_role" "github_actions_role" {
       {
         Effect = "Allow"
         Action = "sts:AssumeRoleWithWebIdentity"
-        "Principal": {
-        "Federated": "arn:aws:iam::012345678910:oidc-provider/token.actions.githubusercontent.com"
+        "Principal" = {
+        "Federated" = "arn:aws:iam::730335362754:oidc-provider/token.actions.githubusercontent.com"
         },
         "Condition" = {
-          "StringEquals": {
+          "StringEquals" = {
             "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
             "token.actions.githubusercontent.com:sub": "repo:ALIAKSEI-sl/rsschool-devops-course-tasks:*"
         }
