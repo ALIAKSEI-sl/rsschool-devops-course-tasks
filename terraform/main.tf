@@ -17,8 +17,10 @@ resource "aws_iam_role" "github_actions_role" {
         "Condition" = {
           "StringEquals" = {
             "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+          },
+          "StringLike" = {
             "token.actions.githubusercontent.com:sub": "repo:ALIAKSEI-sl/rsschool-devops-course-tasks:*"
-        }
+          }
         }
       }
     ]
