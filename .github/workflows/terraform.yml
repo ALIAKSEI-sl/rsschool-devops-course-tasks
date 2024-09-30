@@ -35,6 +35,10 @@ jobs:
             - name: Validate Terraform files
               run: terraform validate
 
+            - name: Terraform Init
+              run: terraform init
+              working-directory: ./terraform
+
             - name: Check Formatting
               run: terraform fmt -check
 
