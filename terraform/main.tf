@@ -1,9 +1,9 @@
 provider "aws" {
-  region = "eu-west-1"
+  region = var.aws_region
 }
 
 resource "aws_iam_role" "github_actions_role" {
-  name = "GithubActionsRole"
+  name = var.aws_iam_role_name
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
