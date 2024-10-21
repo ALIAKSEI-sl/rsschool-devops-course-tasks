@@ -1,0 +1,51 @@
+name: Terraform Workflow
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+    terraform:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Configure AWS
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                role-to-assume: ${{ secrets.AWS_ROLE}}
+                role-session-name: GithubActionsRole
+                aws-region: eu-west-1
+
+            - name: Verify AWS Access
+              run: aws sts get-caller-identity
+
+            - name: Setup Terraform
+              uses: hashicorp/setup-terraform@v2
+              with:
+                  terraform_version: 1.6.0
+
+            - name: Validate Terraform files
+              run: terraform validate
+
+            - name: Terraform Init
+              run: terraform init
+              working-directory: ./terraform
+
+            - name: Check Formatting
+              run: terraform fmt -check
+
+            - name: Terraform Plan
+              run: terraform plan
+              working-directory: ./terraform
+
+            - name: Terraform Apply
+              run: terraform apply -auto-approve
+              working-directory: ./terraform
